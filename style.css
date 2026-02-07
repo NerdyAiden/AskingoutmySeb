@@ -11,38 +11,110 @@ body {
     display: flex; /* Use flexbox layout */
     flex-direction: column; /* Stack elements vertically */
     align-items: center; /* Center-align items horizontally */
-    justify-content: center; /* Center-align items vertically */
-    height: 100vh; /* Make the container full viewport height */
+    justify-content: flex-start; /* Stack from top to avoid vertical cramping */
+    min-height: 100vh; /* Ensure full viewport height but allow flowing */
+    padding-top: 36px; /* Give some breathing room at top */
+    padding-bottom: 36px;
 }
 
 #image-container {
-    width: 320px; /* Fixed box to ensure images are visible */
-    height: 320px; /* Reserve space for the GIFs */
+    width: 320px; /* Fixed width to keep layout consistent */
+    height: auto; /* Let image determine height so layout isn't forced */
     display: flex;
+    flex-direction: column; /* Stack image and message vertically */
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 #image-container img {
     max-width: 100%;
-    max-height: 100%;
+    height: auto;
     display: block;
+    margin-bottom: 8px;
+}
+
+/* Non-editable letter box placed under image and above question */
+#letter-box {
+    width: 320px;
+    min-height: 90px;
+    background: #fffef0;
+    border: 2px solid #f2d66b;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    padding: 12px;
+    margin-bottom: 12px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    color: #333;
+    text-align: left;
+    overflow: auto;
+}
+
+/* Polaroid photo grid and styles - expanded across page */
+#polaroids {
+    width: 90%;
+    max-width: 980px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 18px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0 auto 18px;
+}
+
+.polaroid {
+    background: #fff;
+    padding: 12px 12px 18px;
+    border-radius: 6px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    width: 32%;
+    max-width: 360px;
+    text-align: center;
+    transform-origin: center;
+}
+
+.polaroid:nth-child(1) { transform: rotate(-2deg); }
+.polaroid:nth-child(2) { transform: rotate(1deg); }
+.polaroid:nth-child(3) { transform: rotate(-1deg); }
+
+.polaroid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+.polaroid .caption {
+    font-size: 13px;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* Responsive: stack or reduce size on smaller screens */
+@media (max-width: 800px) {
+    #polaroids { flex-wrap: wrap; gap: 12px; }
+    .polaroid { width: 48%; }
+}
+
+@media (max-width: 480px) {
+    #polaroids { width: 94%; }
+    .polaroid { width: 100%; }
 }
 
 #question {
     font-family: 'Sacramento', cursive; /* Apply Sacramento font to the question */
-    font-size: 52px; /* Set font size for the question */
+    font-size: 42px; /* Slightly smaller for better spacing */
+    margin-bottom: 8px;
 }
 
 #options {
-    margin-top: 20px; /* Add space above the options */
+    margin-top: 12px; /* Add space above the options */
 }
 
 button {
-    padding: 10px 20px; /* Set padding for buttons */
-    margin: 0 10px; /* Set margin around buttons */
-    font-size: 26px; /* Set font size for buttons */
+    padding: 8px 16px; /* Set padding for buttons */
+    margin: 0 8px; /* Set margin around buttons */
+    font-size: 22px; /* Slightly smaller buttons */
     font-family: 'Sacramento', cursive; /* Apply Sacramento font to the options */
     background-color: #f8e005; /* Set button background color */
     color: white; /* Set text color to white */
